@@ -27,8 +27,10 @@
     >
 
     <script>
-        window.emulators = {
-            pathPrefix: "https://js-dos.com/6.22/current/"
+        window.DosConfig = {
+            locateAdditionalEmulatorJS: (filename) => {
+                return "https://js-dos.com/6.22/current/" + filename;
+            }
         };
     </script>
 
