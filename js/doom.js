@@ -1,5 +1,5 @@
 (function () {
-    const DOOM_BUNDLE_URL = "./doom.jsdos";
+    const DOOM_BUNDLE_URL = "../doom.jsdos";
     const KEYS = {
         left: 37,
         up: 38,
