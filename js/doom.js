@@ -259,7 +259,7 @@
 
         dosElement.tabIndex = 0;
 
-        Dos(dosElement, {
+       DosBox(dosElement, {
             url: DOOM_BUNDLE_URL,
             autoStart: true,
             kiosk: true,
