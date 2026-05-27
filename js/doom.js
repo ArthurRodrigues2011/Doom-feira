@@ -252,36 +252,39 @@
 
     function startDoom() {
 
-        if (!window.Dos) {
-            setStatus("Falha ao carregar js-dos", false);
-            return;
-        }
-
-        dosElement.tabIndex = 0;
-
-       DosBox(dosElement, {
-            url: DOOM_BUNDLE_URL,
-            autoStart: true,
-            kiosk: true,
-
-            onEvent: (event, arg) => {
-
-                if (event === "ci-ready") {
-
-                    commandInterface = arg;
-
-                    setStatus("", true);
-
-                    dosElement.focus();
-                }
-
-                if (event === "emu-ready") {
-
-                    setStatus("Iniciando DOOM...", false);
-                }
-            }
-        });
+    if (!window.Dos) {
+        setStatus("Falha ao carregar js-dos", false);
+        return;
     }
+
+    dosElement.tabIndex = 0;
+
+    dosPlayer = Dos(dosElement, {
+        url: DOOM_BUNDLE_URL,
+
+        autoStart: true,
+        kiosk: true,
+
+        backend: "dosbox",
+
+        server: "https://js-dos.com/6.22/current/",
+
+        onEvent: (event, arg) => {
+
+            if (event === "ci-ready") {
+                commandInterface = arg;
+
+                setStatus("", true);
+
+                dosElement.focus();
+            }
+
+            if (event === "emu-ready") {
+                setStatus("Iniciando DOOM...", false);
+            }
+        }
+    });
+}
 
     window.addEventListener("pagehide", releaseAllKeys);
 
