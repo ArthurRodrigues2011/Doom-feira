@@ -197,47 +197,27 @@ async function enterImmersiveMode() {
     }
 
     function startDoom() {
-        if (!window.Dos) {
-            setStatus("Falha ao carregar js-dos", false);
-            return;
-        }
-
-        dosElement.tabIndex = 0;
-
-        dosPlayer = window.Dos(dosElement, {
-            url: DOOM_BUNDLE_URL,
-            autoStart: true,
-            autoSave: true,
-            countDownStart: 0,
-            kiosk: true,
-            noCloud: true,
-            noNetworking: true,
-            renderAspect: "Fit",
-            renderBackend: "canvas",
-            imageRendering: "pixelated",
-            theme: "black",
-            softFullscreen: true,
-            fullScreen: false,
-            onEvent: (event, arg) => {
-                if (event === "ci-ready") {
-                    commandInterface = arg;
-                    setStatus("", true);
-                    dosElement.focus();
-                    return;
-                }
-
-                if (event === "emu-ready") {
-                    setStatus("Iniciando DOOM...", false);
-                }
-            }
-        });
+    if (!window.Dos) {
+        setStatus("Falha ao carregar js-dos", false);
+        return;
     }
 
-    window.addEventListener("pagehide", releaseAllKeys);
-    window.addEventListener("blur", releaseAllKeys);
+    dosElement.tabIndex = 0;
 
-    setupBackButton();
-    setupStartOverlay();
-    setupTouchControls();
-    startDoom();
-}());
+    Dos(dosElement, {
+        url: DOOM_BUNDLE_URL,
+        autoStart: true,
+        kiosk: true,
+        onEvent: (event, arg) => {
+            if (event === "ci-ready") {
+                commandInterface = arg;
+                setStatus("", true);
+                dosElement.focus();
+            }
+
+            if (event === "emu-ready") {
+                setStatus("Iniciando DOOM...", false);
+            }
+        }
+    });
+}
