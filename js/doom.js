@@ -262,16 +262,15 @@
     dosPlayer = Dos(dosElement, {
         url: DOOM_BUNDLE_URL,
 
-        autoStart: true,
         kiosk: true,
+        autoStart: true,
 
-        backend: "dosbox",
-
-        server: "https://js-dos.com/6.22/current/",
+        renderBackend: "canvas",
 
         onEvent: (event, arg) => {
 
             if (event === "ci-ready") {
+
                 commandInterface = arg;
 
                 setStatus("", true);
@@ -280,12 +279,12 @@
             }
 
             if (event === "emu-ready") {
+
                 setStatus("Iniciando DOOM...", false);
             }
         }
     });
 }
-
     window.addEventListener("pagehide", releaseAllKeys);
 
     window.addEventListener("blur", releaseAllKeys);
